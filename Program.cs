@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<UserService>();
 
 // memory Caching
 builder.Services.AddMemoryCache();

@@ -7,16 +7,25 @@ namespace ShoppingUser.API.Controllers
     [Route("api")]
     public class UserController : ControllerBase
     {
-        private AuthService authService1;
-        public UserController(AuthService authService)
+        private UserService _userService;
+        public UserController(UserService userService)
         {
-            authService1 = authService;
+            _userService = userService;
         }
 
         [HttpGet("/users")]
         public IActionResult GetAllUsers()
         {
-            return Ok();
+            try
+            {
+                var result = _userService.GetAllShoppingUsers();
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, "Couldn't fetch the users: " + ex);
+            }
+            
         }
 
     }
