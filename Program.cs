@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using ShoppingUser.API;
 using ShoppingUser.Services;
 
@@ -43,7 +44,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 builder.Services.AddDbContext<UserContext>(options=> options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Logging is in built feature with builder so no need to register.
+// Add Logger Provider SeriLog
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
 var app = builder.Build();
+
+// Log HTTP requests
+app.UseSerilogRequestLogging(); 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

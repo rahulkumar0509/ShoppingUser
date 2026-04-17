@@ -1,0 +1,30 @@
+2026-04-17 23:56:34.397 +05:30 [INF] User profile is available. Using '/Users/rahul/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2026-04-17 23:56:34.462 +05:30 [INF] Now listening on: http://localhost:5210
+2026-04-17 23:56:34.464 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-17 23:56:34.464 +05:30 [INF] Hosting environment: Development
+2026-04-17 23:56:34.464 +05:30 [INF] Content root path: /Users/rahul/Projects/shopping.userservice/ShoppingUser
+2026-04-17 23:57:09.819 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5210/swagger/index.html - null null
+2026-04-17 23:57:09.888 +05:30 [INF] HTTP GET /swagger/index.html responded 200 in 54.5229 ms
+2026-04-17 23:57:09.891 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5210/swagger/index.html - 200 null text/html;charset=utf-8 72.7525ms
+2026-04-17 23:57:10.081 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5210/swagger/v1/swagger.json - null null
+2026-04-17 23:57:10.138 +05:30 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 55.5335 ms
+2026-04-17 23:57:10.138 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5210/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 57.0746ms
+2026-04-17 23:57:13.550 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5210/users - null null
+2026-04-17 23:57:13.556 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-04-17 23:57:13.572 +05:30 [INF] Executing endpoint 'ShoppingUser.API.Controllers.UserController.GetAllUsers (UserService)'
+2026-04-17 23:57:13.584 +05:30 [INF] Route matched with {action = "GetAllUsers", controller = "User"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetAllUsers() on controller ShoppingUser.API.Controllers.UserController (UserService).
+2026-04-17 23:57:13.653 +05:30 [INF] Fetching all users info!
+2026-04-17 23:57:13.654 +05:30 [INF] writing in a text file
+2026-04-17 23:57:13.707 +05:30 [WRN] Fetching from DB!
+2026-04-17 23:57:14.106 +05:30 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[UserId], [s].[Email], [s].[Name], [s].[Password], [s].[Phone]
+FROM [ShoppingUserSchema].[ShoppingUser] AS [s]
+2026-04-17 23:57:14.139 +05:30 [INF] Executing OkObjectResult, writing value of type 'Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1[[ShoppingUserModel, UserService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-17 23:57:14.159 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[UserId], [s].[Email], [s].[Name], [s].[Password], [s].[Phone]
+FROM [ShoppingUserSchema].[ShoppingUser] AS [s]
+2026-04-17 23:57:14.165 +05:30 [INF] Executed action ShoppingUser.API.Controllers.UserController.GetAllUsers (UserService) in 580.02ms
+2026-04-17 23:57:14.166 +05:30 [INF] Executed endpoint 'ShoppingUser.API.Controllers.UserController.GetAllUsers (UserService)'
+2026-04-17 23:57:14.166 +05:30 [INF] HTTP GET /users responded 200 in 614.5368 ms
+2026-04-17 23:57:14.169 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5210/users - 200 null application/json; charset=utf-8 618.9126ms
+ 
