@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using ShoppingUser.API;
 using System.Text.Json;
 using Serilog;
+using Microsoft.EntityFrameworkCore;
 
 namespace ShoppingUser.Services
 {
@@ -27,12 +28,17 @@ namespace ShoppingUser.Services
             {
                 _logger.LogWarning("Fetching from DB!");
                 var userFromDB = _userContext.ShoppingUser;
-                var distributedCacheOption = new DistributedCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(1)).SetSlidingExpiration(TimeSpan.FromMinutes(3));
+                var distributedCacheOption = new DistributedCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(1)).SetSlidingExpiration(TimeSpan.FromMinutes(1));
                 _distributedCache.SetString("Users", JsonSerializer.Serialize(userFromDB), distributedCacheOption);
                 return userFromDB;
             }
             _logger.LogWarning("Fetched from Redis!");
             return JsonSerializer.Deserialize<IEnumerable<ShoppingUserModel>>(users);
+        }
+
+        public async Task<bool> IsEmailIdUnique(string email, CancellationToken ct)
+        {
+            return !await _userContext.ShoppingUser.AnyAsync(u=> u.Email == email, ct); // return true or false
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingUser.Domain;
@@ -9,15 +11,23 @@ namespace ShoppingUser.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AuthService authService1;
-        public AuthController(AuthService authService)
+        private IValidator<UserDto> _validator;
+        public AuthController(AuthService authService, IValidator<UserDto> validator)
         {
             authService1 = authService;
+            _validator = validator;
         }
 
         [HttpPost("/signup")]
-        public IActionResult SignupUser([FromBody] UserDto user)
+        public async Task<IActionResult> SignupUser([FromBody] UserDto user)
         {
-            var result =  authService1.SignupUser(user);
+            var validationResult = await _validator.ValidateAsync(user);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+            
+            authService1.SignupUser(user);
             return Created();
         }
 

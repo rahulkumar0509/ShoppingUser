@@ -1,9 +1,12 @@
 using System.Text;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using ShoppingUser.API;
+using ShoppingUser.Domain;
 using ShoppingUser.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +19,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
+
+// register fluent validation
+builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
 
 // memory Caching
 builder.Services.AddMemoryCache();
